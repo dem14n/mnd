@@ -108,7 +108,7 @@ int main() {
     cout << an0 << " + " << an1 << " * " << x1min << " + " << an2 << " * " << x2max << " = " << test33 << "\n\n"; 
     cout << "Therefore, the coefficients of equations are correct.\n";
   } else {
-    cout << "The dispersion is inhomogeneous\n";
+    cout << "The dispersion is inhomogeneous";
   }
 }
 

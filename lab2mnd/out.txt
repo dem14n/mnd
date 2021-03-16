@@ -1,0 +1,29 @@
+The dispersion is homogeneous
+Experiment planning matrix:
+x1   x2   y1   y2   y3   y4   y5
+10 -20 -859 -889 -926 -886 -895
+50 -20 -936 -883 -869 -877 -900
+10  60 -885 -884 -901 -870 -917
+Normalized matrix of experiment planning:
+x1   x2
+-1 -1
+ 1 -1
+-1  1
+
+Y average values: -891, -893, -891.4
+
+Normalized regression equation:
+y = -892.2 + -1 * x1 + -0.2 * x2
+Let's check:
+-892.2 + -1 * -1 + -0.2 * -1 = -891
+-892.2 + -1 * 1 + -0.2 * -1 = -893
+-892.2 + -1 * -1 + -0.2 * 1 = -891.4
+
+Naturalized regression equation:
+y = -890.6 + -0.05 * x1 + -0.005 * x2
+Let's check:
+-890.6 + -0.05 * 10 + -0.005 * -20 = -891
+-890.6 + -0.05 * 50 + -0.005 * -20 = -893
+-890.6 + -0.05 * 10 + -0.005 * 60 = -891.4
+
+Therefore, the coefficients of equations are correct.
