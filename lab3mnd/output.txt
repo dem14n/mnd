@@ -1,0 +1,31 @@
+The minimum value of the response function: 190.0
+The maximum value of the response function: 243.33333333333334
+Experiment matrix:
+[10, -20, -20]
+[10, 60, 20]
+[50, -20, 20]
+[50, 60, -20]
+Response functions:
+[203, 194, 204]
+[241, 225, 208]
+[206, 210, 209]
+[202, 240, 242]
+Average values of response functions: 
+[200.33333333333334, 224.66666666666666, 208.33333333333334, 208.33333333333334]
+Regression equation: 
+y = 210.5 + -0.10416666666666825 * x1  + 0.15208333333333302 * x2 + 0.3041666666666665 * x3
+Check: 
+[200.33333333333331, 224.66666666666663, 208.3333333333333, 208.33333333333323]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Cochren test:
+Dispersions:
+[20.22222222222222, 181.55555555555557, 2.888888888888889, 338.6666666666667]
+The dispersion is homogeneous
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Checking the significance of the coefficients according to Student's criterion:
+Regression equation: 
+y = 210.5 + 0.0 * x1  + 0.0 * x2 + 0.0 * x3
+Values of regression equations: [210.5, 210.5, 210.5, 210.5]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Fisher's test:
+The regression equation is adequate to the original at a significance level of 0.05

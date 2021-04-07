@@ -1,5 +1,3 @@
-package lab3mnd;
-
 import java.util.Arrays;
 import java.util.Random;
 
@@ -86,7 +84,7 @@ public class Main {
 	}
 	
 	static boolean cochrane(double[] dispersionList) {
-	    System.out.println("Дисперсії:");
+	    System.out.println("Dispersions:");
 	    System.out.println(Arrays.toString(dispersionList));
 	    double GPDenom = 0;
 	    for (double el : dispersionList) {
@@ -167,28 +165,28 @@ public class Main {
 		int[] xMax = {50, 60, 20};
 		double yMin = 200 + average(xMin);
 		double yMax = 200 + average(xMax);
-		System.out.println("Мінімальне значення ф-кції відгуку: " + yMin);
-		System.out.println("Максимальне значення ф-кції відгуку: " + yMax);
+		System.out.println("The minimum value of the response function: " + yMin);
+		System.out.println("The maximum value of the response function: " + yMax);
 		int[][] experimentMatrix = new int[4][];
 		experimentMatrix[0] = new int[] {xMin[0], xMin[1], xMin[2]};
 		experimentMatrix[1] = new int[] {xMin[0], xMax[1], xMax[2]};
 		experimentMatrix[2] = new int[] {xMax[0], xMin[1], xMax[2]};
 		experimentMatrix[3] = new int[] {xMax[0], xMax[1], xMin[2]};
-		System.out.println("Матриця експерименту:");
+		System.out.println("Experiment matrix:");
 		printMatrix(experimentMatrix);
 		int[] y1 = new int[m], y2 = new int[m], y3 = new int[m], y4 = new int[m];
 		insertMatrix(y1, (int)Math.floor(yMin), (int)Math.floor(yMax));
 		insertMatrix(y2, (int)Math.floor(yMin), (int)Math.floor(yMax));
 		insertMatrix(y3, (int)Math.floor(yMin), (int)Math.floor(yMax));
 		insertMatrix(y4, (int)Math.floor(yMin), (int)Math.floor(yMax));
-		System.out.println("Функції відгуку:");
+		System.out.println("Response functions:");
 		System.out.println(Arrays.toString(y1));
 		System.out.println(Arrays.toString(y2));
 		System.out.println(Arrays.toString(y3));
 		System.out.println(Arrays.toString(y4));
 		double[] dispersionList = {dispersion(y1), dispersion(y2), dispersion(y3), dispersion(y4)};
 		double[] avgList = {average(y1), average(y2), average(y3), average(y3)};
-		System.out.println("Середні значення функцій відгуку: ");
+		System.out.println("Average values of response functions: ");
 		System.out.println(Arrays.toString(avgList));
 		double my = average(avgList);
 		double mx1 = (double)(experimentMatrix[0][0] + experimentMatrix[1][0] + experimentMatrix[2][0] + experimentMatrix[3][0]) / N;
@@ -237,26 +235,26 @@ public class Main {
 		double b2 = matrixDeterminant(b2Num) / matrixDeterminant(denom);
 		double b3 = matrixDeterminant(b3Num) / matrixDeterminant(denom);
 		
-		System.out.println("Рівняння регресії: ");
+		System.out.println("Regression equation: ");
 		System.out.println("y = " + b0 + " + " + b1 + " * x1  + " + b2 + " * x2 + " + b3 + " * x3");
 		
 		double[] yTest = new double[N];
 		for (int i = 0; i < N; i++) {
 			yTest[i] = b0 + b1 * experimentMatrix[i][0] + b2 * experimentMatrix[i][1] + b3 * experimentMatrix[i][2];
 		}
-		System.out.println("Перевірка: ");
+		System.out.println("Check: ");
 		System.out.println(Arrays.toString(yTest));
 		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		System.out.println("Перевірка за критерієм Кохрена:");
+		System.out.println("Cochren test:");
 		if (cochrane(dispersionList)) {
-			System.out.println("Дисперсія однорідна");
+			System.out.println("The dispersion is homogeneous");
 		} else {
-			System.out.println("Дисперсія неоднорідна");
+			System.out.println("The dispersion is inhomogeneous");
 		}
 		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		System.out.println("Перевірка значущості коефіцієнтів за критерієм Стьюдента:");
+		System.out.println("Checking the significance of the coefficients according to Student's criterion:");
 		double[] student = studentsCriterion(m, N, dispersionList, avgList, new double[]{b0, b1, b2, b3});
-		System.out.println("Рівняння регресії: ");
+		System.out.println("Regression equation: ");
 		System.out.println("y = " + student[0] + " + " + student[1] + " * x1  + " + student[2] + " * x2 + " + student[3] + " * x3");
 		
 		double[] testStud = new double[N];
@@ -265,13 +263,13 @@ public class Main {
 		testStud[2] = student[0] + student[1] * experimentMatrix[2][0] + student[2] * experimentMatrix[2][1] + student[3] * experimentMatrix[2][2];
 		testStud[3] = student[0] + student[1] * experimentMatrix[3][0] + student[1] * experimentMatrix[3][1] + student[3] * experimentMatrix[3][2];
 		
-		System.out.println("Значення рівнянь регресій: "+ Arrays.toString(testStud));
+		System.out.println("Values of regression equations: "+ Arrays.toString(testStud));
 		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		System.out.println("Перевірка за критерієм Фішера:");
+		System.out.println("Fisher's test:");
 		if (fishersCriterion(m, N, student, avgList, testStud, dispersionList)) {
-			System.out.println("Рівняння регресії адекватно оригіналу при рівні значимості 0.05");
+			System.out.println("The regression equation is adequate to the original at a significance level of 0.05");
 		} else {
-			System.out.println("Рівняння регресії неадекватно оригіналу при рівні значимості 0.05");
+			System.err.println("The regression equation is inadequate to the original at a significance level of 0.05");
 		}
 	}
 	
