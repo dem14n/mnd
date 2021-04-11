@@ -44,8 +44,6 @@ public class Main {
 	}
 	
 	static boolean cochrane(double[] dispersionList) {
-	    System.out.println("Dispersions:");
-	    System.out.println(Arrays.toString(dispersionList));
 	    double GPDenom = 0;
 	    for (double el : dispersionList) {
 	        GPDenom += el;
@@ -55,8 +53,6 @@ public class Main {
 	    // F1 = 2, F2 = 8
 	    // Gт=0.5157 
 	    final double GT = 0.5157;
-	    System.out.println("GP = " + GP);
-	    System.out.println("GT = " + GT);
 	    return GP < GT;
 	}
 	
