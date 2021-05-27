@@ -12,7 +12,11 @@ from math import sqrt
 from scipy.stats import f
 from scipy.stats import t as t_check
 import sklearn.linear_model as lm
+import time
 N, d, l = 15, 8, 1.215
+cohren_time = []
+student_time = []
+fischer_time = []
 print("y` = b0 + b1*x1 + b2*x2 + b3*x3 + b12*x1*x2 + b13x1*x3 + b23*x2*x3 + b123*x1*x2*x3 + b11*x1**2 + b22*x2**2 + b33*x3**2")
 def create_mat(N, m):
     matrix_X = [[-1, 2], [-9, 6], [-5, 8]]
@@ -103,14 +107,17 @@ def check(average_Y, mat_Y, tran1, blist, matt_fullX, m):
     print("Дисперсії по рядках:\n", mat_disY)
     print('-------------------------------------------------------------------------')
     print('ПЕРЕВІРКА ОДНОРІДНОСТІ ДИСПЕРСІЇ ЗА КРИТЕРІЄМ КОХРЕНА:')
+    start = time.perf_counter()
     if max(mat_disY) / sum(mat_disY) < 0.7679:
         print('Дисперсія однорідна')
     else:
         print('Дисперсія неоднорідна')
         m += 1
         main(N, m)
+    cohren_time.append(time.perf_counter() - start)
     print('-------------------------------------------------------------------------')
     print('ПЕРЕВІРКА ЗНАЧУЩОСТІ КОЕФІЦІЄНТІВ ЗА КРИТЕРІЄМ СТЬЮДЕНТА:')
+    start = time.perf_counter()
     S2b = sum(mat_disY) / N
     S2bs = S2b / (m * N)
     Sbs = sqrt(S2bs)
@@ -130,9 +137,11 @@ def check(average_Y, mat_Y, tran1, blist, matt_fullX, m):
         blist[0] * matt_fullX[i][0] + blist[1] * matt_fullX[i][1] + blist[2] * matt_fullX[i][2] + blist[3] * matt_fullX[i][3] + blist[4] *
         matt_fullX[i][4] + blist[5] * matt_fullX[i][5] + blist[6] * matt_fullX[i][6] + blist[7] * matt_fullX[i][7] + blist[8] * matt_fullX[i][8] + blist[9] * matt_fullX[i][9] + blist[10] * matt_fullX[i][10] for i
         in range(N)]
+    student_time.append(time.perf_counter() - start)
     print('Значення рівнянь регресій:\n', y_reg)
     print('-------------------------------------------------------------------------')
     print('ПЕРЕВІРКА АДЕКВАТНОСТІ ЗА КРИТЕРІЄМ ФІШЕРА:')
+    start = time.perf_counter()
     f4 = N - d
     Sad = (m / (N - d)) * int(sum(y_reg[i] - average_Y[i] for i in range(N)) ** 2)
     Fp = Sad / S2b
@@ -142,6 +151,7 @@ def check(average_Y, mat_Y, tran1, blist, matt_fullX, m):
         print('Рівняння регресії неадекватно оригіналу при рівні значимості 0.05')
     else:
         print('Рівняння регресії адекватно оригіналу при рівні значимості 0.05')
+    fischer_time.append(time.perf_counter() - start)
 
 
 def main(N, m):
@@ -150,8 +160,11 @@ def main(N, m):
     b = coef_b(x, average_Y)
     check(average_Y, mat_Y, tran1, b, x, m)
 
-
-main(15, 3)
+for i in range(10):
+    main(15, 3)
+print("Cohren average time: ", sum(cohren_time)/len(cohren_time))
+print("Student average time: ", sum(student_time)/len(student_time))
+print("Fischer time: ", sum(fischer_time)/len(fischer_time))
 
 
 
