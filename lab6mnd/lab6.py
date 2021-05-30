@@ -5,8 +5,10 @@ from beautifultable import BeautifulTable
 from numpy.linalg import solve
 from scipy.stats import f, t
 
+result_counter = 0
 
 def main(n, m):
+    global result_counter
     x1_min = 10
     x1_max = 50
     x2_min = -20
@@ -176,6 +178,7 @@ def main(n, m):
             sign_coef.append(beta[j])
     print("\nКритерій  Стьюдента:")
     print("Значущі коефіцієнти регресії :", [round(i, 3) for i in sign_coef])
+    result_counter += len(sign_coef)
     print("Незначущі коефіцієнти регресії :", [round(i, 3) for i in insign_coef])
     y_st = []
     for i in range(15):
@@ -195,4 +198,8 @@ def main(n, m):
         print("Математична модель неадекватна експериментальним даним ")
 
 
-main(15, 3)
+
+for i in range(100):
+	main(15, 3)
+	
+print("Cумарна кількість значимих коефіцієнтів: " + str(result_counter))
